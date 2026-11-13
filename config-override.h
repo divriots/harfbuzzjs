@@ -10,3 +10,11 @@
 #undef HB_NO_CUBIC_GLYF
 #undef HB_NO_VAR_COMPOSITES
 #define HB_BUFFER_MESSAGE_MORE 1
+// Legacy 'kern' table and AAT shaping; the rest of HB_NO_LEGACY stays off.
+#undef HB_NO_LEGACY
+#undef HB_NO_AAT
+#define HB_NO_CMAP_LEGACY_SUBTABLES
+#define HB_NO_FALLBACK_SHAPE
+#define HB_NO_OT_LAYOUT_BLOCKLIST
+#define HB_NO_AAT_LAYOUT_BLOCKLIST
+#define HB_NO_OT_SHAPE_FALLBACK

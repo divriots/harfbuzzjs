@@ -1,7 +1,7 @@
 {
-  "name": "harfbuzzjs",
-  "version": "0.4.13",
-  "description": "Minimal version of HarfBuzz for JavaScript use",
+  "name": "@divriots/harfbuzzjs",
+  "version": "0.4.13-divriots.1",
+  "description": "harfbuzzjs built with the legacy kern table and AAT shaping",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/index.js"
@@ -33,5 +33,8 @@
   "devDependencies": {
     "chai": "^4.3.7",
     "mocha": "^10.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
