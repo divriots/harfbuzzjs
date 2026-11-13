@@ -4,6 +4,7 @@ import {
   hb_tag,
   hb_untag,
   string_to_ascii_ptr,
+  is_ascii,
   utf8_ptr_to_string,
 } from "./helpers";
 
@@ -87,6 +88,7 @@ export class Feature {
    * @returns A Feature, or undefined if the string is not a valid feature.
    */
   static fromString(str: string): Feature | undefined {
+    if (!is_ascii(str)) return undefined;
     const sp = Module.stackSave();
     const featurePtr = Module.stackAlloc(16);
     const strPtr = string_to_ascii_ptr(str);

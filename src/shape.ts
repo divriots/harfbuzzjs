@@ -175,9 +175,15 @@ export function otTagsFromScriptAndLanguage(
   scriptTags: string[];
   languageTags: string[];
 } {
-  const sp = Module.stackSave();
   const scriptStr = string_to_ascii_ptr(script);
-  const languageStr = string_to_ascii_ptr(language);
+  let languageStr;
+  try {
+    languageStr = string_to_ascii_ptr(language);
+  } catch (e) {
+    scriptStr.free();
+    throw e;
+  }
+  const sp = Module.stackSave();
   const scriptCountPtr = Module.stackAlloc(4);
   Module.HEAPU32[scriptCountPtr / 4] = HB_OT_MAX_TAGS_PER_SCRIPT;
   const scriptTagsPtr = Module.stackAlloc(HB_OT_MAX_TAGS_PER_SCRIPT * 4);

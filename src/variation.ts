@@ -4,6 +4,7 @@ import {
   hb_tag,
   hb_untag,
   string_to_ascii_ptr,
+  is_ascii,
   utf8_ptr_to_string,
 } from "./helpers";
 
@@ -39,6 +40,7 @@ export class Variation {
    * @returns A Variation, or undefined if the string is not a valid variation.
    */
   static fromString(str: string): Variation | undefined {
+    if (!is_ascii(str)) return undefined;
     const sp = Module.stackSave();
     const variationPtr = Module.stackAlloc(8);
     const strPtr = string_to_ascii_ptr(str);

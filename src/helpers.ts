@@ -86,17 +86,21 @@ export function utf16_ptr_to_string(ptr: number, length: number): string {
   return String.fromCharCode(...Module.HEAPU16.subarray(ptr / 2, end));
 }
 
+export function is_ascii(text: string): boolean {
+  for (let i = 0; i < text.length; ++i)
+    if (text.charCodeAt(i) > 127) return false;
+  return true;
+}
+
 /**
  * Use when you know the input range should be ASCII.
  * Faster than encoding to UTF-8
  */
 export function string_to_ascii_ptr(text: string): StringPtr {
+  if (!is_ascii(text)) throw new Error("Expected ASCII text");
   const ptr = exports.malloc(text.length + 1);
-  for (let i = 0; i < text.length; ++i) {
-    const char = text.charCodeAt(i);
-    if (char > 127) throw new Error("Expected ASCII text");
-    Module.HEAPU8[ptr + i] = char;
-  }
+  for (let i = 0; i < text.length; ++i)
+    Module.HEAPU8[ptr + i] = text.charCodeAt(i);
   Module.HEAPU8[ptr + text.length] = 0;
   return {
     ptr,

@@ -1,6 +1,6 @@
 {
   "name": "@divriots/harfbuzzjs",
-  "version": "1.6.4-divriots.2",
+  "version": "1.6.4-divriots.3",
   "description": "harfbuzzjs built with the legacy kern table and AAT shaping",
   "type": "module",
   "main": "dist/index.mjs",
