@@ -2,6 +2,7 @@ import {
   Module,
   exports,
   track,
+  release,
   STATIC_ARRAY_SIZE,
   hb_tag,
   hb_untag,
@@ -58,6 +59,11 @@ export class Face {
     }
     this.upem = exports.hb_face_get_upem(this.ptr);
     track(this, exports.hb_face_destroy);
+  }
+
+  /** Free the object now instead of when it is garbage-collected. */
+  destroy(): void {
+    release(this, exports.hb_face_destroy);
   }
 
   /**

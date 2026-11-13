@@ -1,4 +1,4 @@
-import { Module, exports, freeFuncPtr, track } from "./helpers";
+import { Module, exports, freeFuncPtr, track, release } from "./helpers";
 
 /**
  * An object representing a {@link https://harfbuzz.github.io/harfbuzz-hb-blob.html | HarfBuzz blob}.
@@ -22,5 +22,10 @@ export class Blob {
       freeFuncPtr,
     );
     track(this, exports.hb_blob_destroy);
+  }
+
+  /** Free the object now instead of when it is garbage-collected. */
+  destroy(): void {
+    release(this, exports.hb_blob_destroy);
   }
 }

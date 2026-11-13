@@ -2,6 +2,7 @@ import {
   Module,
   exports,
   track,
+  release,
   STATIC_ARRAY_SIZE,
   hb_tag,
   utf8_ptr_to_string,
@@ -159,6 +160,11 @@ export class Font {
       this._face = arg;
     }
     track(this, exports.hb_font_destroy);
+  }
+
+  /** Free the object now instead of when it is garbage-collected. */
+  destroy(): void {
+    release(this, exports.hb_font_destroy);
   }
 
   /** The {@link Face} associated with this font. */

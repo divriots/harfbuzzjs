@@ -1,4 +1,4 @@
-import { Module, exports, track, utf8_ptr_to_string } from "./helpers";
+import { Module, exports, track, release, utf8_ptr_to_string } from "./helpers";
 import type { FontExtents, GlyphExtents } from "./types";
 import { Font } from "./font";
 
@@ -14,6 +14,11 @@ export class FontFuncs {
   constructor() {
     this.ptr = exports.hb_font_funcs_create();
     track(this, exports.hb_font_funcs_destroy);
+  }
+
+  /** Free the object now instead of when it is garbage-collected. */
+  destroy(): void {
+    release(this, exports.hb_font_funcs_destroy);
   }
 
   /**

@@ -2,6 +2,7 @@ import {
   Module,
   exports,
   track,
+  release,
   hb_tag,
   utf8_ptr_to_string,
   string_to_ascii_ptr,
@@ -87,6 +88,11 @@ export class Buffer {
       this.ptr = exports.hb_buffer_create();
     }
     track(this, exports.hb_buffer_destroy);
+  }
+
+  /** Free the object now instead of when it is garbage-collected. */
+  destroy(): void {
+    release(this, exports.hb_buffer_destroy);
   }
 
   /**

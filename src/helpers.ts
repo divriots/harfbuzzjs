@@ -27,7 +27,20 @@ export function track(
   destroy: (ptr: number) => void,
 ): void {
   const ptr = obj.ptr;
-  registry.register(obj, () => destroy(ptr));
+  registry.register(obj, () => destroy(ptr), obj);
+}
+
+/** Destroy a tracked object now; later calls do nothing. */
+export function release(
+  obj: { ptr: number },
+  destroy: (ptr: number) => void,
+): void {
+  if (registry.unregister(obj)) destroy(obj.ptr);
+}
+
+/** Size of the WASM heap, in bytes. */
+export function heapSize(): number {
+  return Module.HEAPU8.byteLength;
 }
 
 /**
