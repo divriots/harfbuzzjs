@@ -159,7 +159,8 @@ export function typed_array_from_set(setPtr: number): Uint32Array {
     arrayPtr,
     setCount,
   );
-  const array = Module.HEAPU32.subarray(arrayOffset, arrayOffset + setCount);
+  const array = Module.HEAPU32.slice(arrayOffset, arrayOffset + setCount);
+  exports.free(arrayPtr);
   return array;
 }
 
